@@ -14,7 +14,10 @@ model News {
   content     String
   image       String?
   source      String?
-  category    String?
+  sourceUrl   String?
+  category    String   @default("General")
+  featured    Boolean  @default(false)
+  approved    Boolean  @default(true)
   publishedAt DateTime
   createdAt   DateTime @default(now())
 }
