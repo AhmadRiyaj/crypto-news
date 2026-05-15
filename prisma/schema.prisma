@@ -1,0 +1,24 @@
+// prisma/schema.prisma
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+model News {
+  id          Int      @id @default(autoincrement())
+  title       String
+  slug        String   @unique
+  content     String
+  image       String?
+  source      String?
+  sourceUrl   String?
+  category    String   @default("General")
+  featured    Boolean  @default(false)
+  approved    Boolean  @default(true)
+  publishedAt DateTime
+  createdAt   DateTime @default(now())
+}

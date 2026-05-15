@@ -1,0 +1,28 @@
+# render.yaml — Render Blueprint for automatic deployment
+# Upload this file to your GitHub repo root.
+
+services:
+  - type: web
+    name: crypto-news
+    env: node
+    plan: free
+    buildCommand: npm install && npm run build
+    startCommand: npm start
+    healthCheckPath: /
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: DATABASE_URL
+        value: file:./prisma/prod.db
+      - key: CRYPTOPANIC_API_KEY
+        sync: false   # Set this in Render dashboard
+      - key: ADMIN_PASSWORD
+        sync: false   # Set this in Render dashboard
+      - key: NEXT_PUBLIC_SITE_URL
+        sync: false   # Set this to your Render URL
+      - key: NEXT_PUBLIC_SITE_NAME
+        value: CryptoPulse
+    disk:
+      name: sqlite-data
+      mountPath: /opt/render/project/src/prisma
+      sizeGB: 1       # 1 GB persistent disk (free tier allows this)
