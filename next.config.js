@@ -2,12 +2,13 @@
 const nextConfig = {
   images: {
     remotePatterns: [
-      { protocol: "https", hostname: "**" },
+      {
+        protocol: "https",
+        hostname: "**",
+      },
     ],
-    unoptimized: true, // saves CPU on small servers
-  },
-  experimental: {
-    serverComponentsExternalPackages: ["@prisma/client"],
+
+    unoptimized: true,
   },
 };
 
