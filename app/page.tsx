@@ -1,3 +1,4 @@
+export const dynamic = "force-dynamic";
 // app/page.tsx
 import { prisma } from "@/lib/db";
 import NewsCard from "@/components/NewsCard";
@@ -7,7 +8,15 @@ import Link from "next/link";
 
 export const revalidate = 300; // Revalidate every 5 minutes
 
-const CATEGORIES = ["Bitcoin", "Ethereum", "DeFi", "NFTs", "Altcoins", "Regulation", "Trading"];
+const CATEGORIES = [
+  "Bitcoin",
+  "Ethereum",
+  "DeFi",
+  "NFTs",
+  "Altcoins",
+  "Regulation",
+  "Trading",
+];
 
 export default async function HomePage() {
   const [featured, latest, trending] = await Promise.all([
@@ -52,7 +61,10 @@ export default async function HomePage() {
             <h2 className="font-display text-xl font-700 text-text">
               <span className="text-accent">▍</span> Latest News
             </h2>
-            <Link href="/news" className="text-sm text-muted hover:text-accent transition-colors font-mono">
+            <Link
+              href="/news"
+              className="text-sm text-muted hover:text-accent transition-colors font-mono"
+            >
               View All →
             </Link>
           </div>
@@ -99,7 +111,13 @@ export default async function HomePage() {
   );
 }
 
-function TrendingItem({ article, rank }: { article: { slug: string; title: string; category: string; publishedAt: Date }; rank: number }) {
+function TrendingItem({
+  article,
+  rank,
+}: {
+  article: { slug: string; title: string; category: string; publishedAt: Date };
+  rank: number;
+}) {
   return (
     <Link
       href={`/news/${article.slug}`}
@@ -116,7 +134,10 @@ function TrendingItem({ article, rank }: { article: { slug: string; title: strin
           {article.title}
         </p>
         <p className="text-xs text-muted mt-1 font-mono">
-          {new Date(article.publishedAt).toLocaleDateString("en-US", { month: "short", day: "numeric" })}
+          {new Date(article.publishedAt).toLocaleDateString("en-US", {
+            month: "short",
+            day: "numeric",
+          })}
         </p>
       </div>
     </Link>
